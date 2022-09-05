@@ -4,17 +4,25 @@ import './index.css';
 
 function AddForm(props) {
 	const [text, changeText] = useState("");
-	return <form onSubmit={(e) => {e.preventDefault(); props.onAdd(text)}}>
-		<input onChange={(e) => {changeText(e.target.value)}}></input>
-		<input type="submit" value="Add"/>
+	return <form className="form-group d-flex" onSubmit={(e) => {e.preventDefault(); props.onAdd(text)}}>
+		<input className="form-control" onChange={(e) => {changeText(e.target.value)}}></input>
+		<div class="input-group-append">
+			<input className="btn btn-primary" type="submit" value="+"/>
+		</div>
 	</form>
 }
 
 function TodoElement(props) {
+	/*
 	return <div className="todoElement">
 		<p>{props.text}</p>
 		<button onClick={props.onRemove}>X</button>
 	</div>
+	*/
+	return <ul className="list-group-item d-flex justify-content-between align-items-center">
+		<p className="align-bottom">{props.text}</p>
+		<button className="btn btn-danger float-right" onClick={props.onRemove}>X</button>
+	</ul>
 }
 
 function TodoList() {
@@ -46,13 +54,16 @@ function TodoList() {
 		elements.push(<TodoElement key={i} index={i} text={todo[i]} onRemove={() => {handleRemove(i)}} />);
 	}
 	return <div>
-		<h1>Todo List</h1>
-		{ elements }
+		<h1 className="text-center">Todo List</h1>
 		<AddForm onAdd={handleAdd}/>
+		<ul class="list-group mt-5">
+			{ elements }
+		</ul>
+		
 	</div>
 }
 function Page(props) {
-	return <div>
+	return <div className="center-align mt-2">
 		<TodoList />
 	</div>
 }
